@@ -1,11 +1,10 @@
 package br.org.fatec.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente extends Pessoa {
 
-	List <Animal> animais = new ArrayList<Animal>();
+	public List <Animal> animais;
 	
 	public Cliente(String nome, String cpf, Endereco endereco, String telefone, List<Animal> animais) {
 		super(nome, cpf, endereco, telefone);
