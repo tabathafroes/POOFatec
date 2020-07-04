@@ -161,9 +161,6 @@ public class Controle {
 	}
 		
 	public void novoAtendimento() {
-		Cliente cli = null;
-		
-		
 		System.out.println("Digite os dados do cliente a ser atendido");
 		System.out.println("Nome:");
 		String nomeC = texto();
@@ -175,20 +172,22 @@ public class Controle {
 		if(cpfC.length() != 11) {
 			System.out.println("CPF inválido, digite novamente:");
 			cpfC = texto();
+			for (Cliente c : clientes) {
+				if(c.getCpf() == cpfC) {
+				
+				}else {
+					System.out.println("CPF não cadastrado!");
+					cpfC = texto();
+				}
+			}
 		}
-		for (Cliente c : clientes) {
-			if(c.getCpf() == cpfC) {
-				cli =  c;
-				break;
-			} 
-		}
+	
 		System.out.println("Nome do animal:");
 		String nomeA = texto();
-		for (Animal a : cli.getAnimais()) {
-			if(a.getNome().toLowerCase() == nomeA.toLowerCase()) {
-			
-			}else{
+		for (Animal a : animais) {
+			if(a.getNome().toLowerCase() != nomeA.toLowerCase()) {
 				System.out.println("Não existe animal cadastrado para esse nome.");
+				break;
 			}
 		}
 		System.out.println("Digite os dados do atendente:");
@@ -204,9 +203,10 @@ public class Controle {
 			cpfC = texto();
 		}
 		for (Profissional p : profissionais) {
-			if(p.getCpf() == cpfP) {
-				break;
-			} System.out.println("Não existe profissional cadastrado para esse cpf");
+			if(p.getCpf() != cpfP) {
+				System.out.println("Não existe profissional cadastrado para esse cpf");
+				cpfC = texto();
+			} 
 		}
 		System.out.println("Digite a data do agendamento:");
 		String dataA = texto();
@@ -238,17 +238,19 @@ public class Controle {
 				}
 			}
 		}
-		for(int i = 0; i < relatorios.size(); i++) {
-			for (RelatorioRaca n: relatorios) {
-				int maior = 0;
-				if (n.getQuantidade() >= maior) {
-					maior = n.getQuantidade();
-					System.out.println((i+1)+"°-"+n.getRaca()+"("+maior+")");
-					relatorios.remove(n);
-				}
+		for (RelatorioRaca n: relatorios) {
+			int cont = 1;
+			int maior = 0;
+			if (n.getQuantidade() >= maior) {
+				maior = n.getQuantidade();
+				System.out.println((cont)+"°-"+n.getRaca()+"("+maior+")");
+				relatorios.remove(n);
+				cont++;
 			}
+			
 		}
-	}
+			
+	}	
 	
 		
 	public void relatorioGenero() {
@@ -263,10 +265,13 @@ public class Controle {
 				}
 			if (masculino > feminino) {
 				System.out.println("Os animais em sua maioria são machos!");
+				break;
 			}else if (feminino > masculino) {
 				System.out.println("Os animais em sua maioria são fêmeas!");
+				break;
 			}else {
 				System.out.println("Que beleza! Temos números iguais de fêmeas e machos!");
+				break;
 			}
 			}
 	}
@@ -274,12 +279,12 @@ public class Controle {
 	public void historicoAtendimento() {
 		for (int i = 0; i < atendimentos.size(); i++) {
 			System.out.println("Atendimento "+(i+1)+":");
-			System.out.println(atendimentos.get(i).getNomeC());
-			System.out.println(atendimentos.get(i).getCpfC());
-			System.out.println(atendimentos.get(i).getNomeA());
-			System.out.println(atendimentos.get(i).getNomeP());
-			System.out.println(atendimentos.get(i).getCpfP());
-			System.out.println(atendimentos.get(i).getHora());
+			System.out.println("Nome cliente: "+atendimentos.get(i).getNomeC());
+			System.out.println("CPF cliente: "+atendimentos.get(i).getCpfC());
+			System.out.println("Animal do cliente: "+atendimentos.get(i).getNomeA());
+			System.out.println("Nome do atendente: "+atendimentos.get(i).getNomeP());
+			System.out.println("CPF do atendente: "+atendimentos.get(i).getCpfP());
+			System.out.println("Data de atendimento: "+atendimentos.get(i).getHora());
 		}
 	}
 	
